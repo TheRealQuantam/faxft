@@ -1,0 +1,196 @@
+.ifndef CONSTANTS_INC
+.define CONSTANTS_INC
+
+;BANK_SIZE = $2000
+
+NAT_SOUND_BANK = 5
+
+NUM_NAT_TRACKS = $11 ; Number of vanilla music tracks
+EXP_NUM_NAT_TRACKS = $12 ; Number of native format tracks after expansion
+MAX_TRACKS = $40 ; Max supported number of music tracks
+
+NAT_SOUND_CODE_SIZE = $33d2
+
+NUM_AREAS = 8 ; Number of vanilla areas/worlds
+MAX_AREAS = $10 ; Max supported areas
+MAX_ZONES = $c0 ; Max supported zones
+MAX_DOORS = $c0 ; Max supported doors
+MAX_TRANSITIONS = $30 ; Max supported screen transitions (usually towns)
+
+NUM_RESPAWN_POINTS = 8 ; Number of vanilla respawn points (priests)
+MAX_RESPAWN_POINTS = $10 ; Max supported respawn points
+
+BOSS_TRACK_IDX = $a
+LAST_BOSS_TRACK_IDX = $11
+
+; Music states for CurState
+NOT_PLAYING = 0
+PLAYING_NAT = 1
+PLAYING_FT = 2
+
+NO_FT_TRACK_TO_PLAY = $ff
+
+;FT_SAVE_BUFF_SIZE = $130
+
+; Bank 5
+UpdateNativeMusic := $8009
+UpdateNativeSfx := $8003
+UpdatePlayingNativeMusic := $8106
+NativeTrackTable := $8efb
+
+; Music track indices
+.enum TRACK_ID
+	SILENCE
+	TITLE
+	DWARF
+	TRUNK
+	BRANCH
+	MIST
+	TOWER
+	EOLIS
+	GAME_OVER
+	TOWN
+	BOSS
+	HOURGLASS
+	ENDING
+	THRONE_ROOM
+	CHURCH
+	SHOP
+	ZENIS
+	LAST_BOSS ; Expanded copy of BOSS
+.endenum ; TRACK_ID
+
+; Game zone indices
+.enum ZONE_ID
+	EOLIS_ENTRANCE
+	EOLIS
+	EOLIS_BUTCHER
+	EOLIS_HOUSE
+	EOLIS_CHURCH
+	EOLIS_LOCKSMITH
+	EOLIS_VENDOR
+	EOLIS_WIZARD
+	EOLIS_GYM
+	EOLIS_CASTLE
+	
+	TRUNK_1
+	TRUNK_1_VENDOR
+	
+	APOLUNE
+	APOLUNE_VENDOR
+	APOLUNE_LOCKSMITH
+	APOLUNE_BAR
+	APOLUNE_CHURCH
+	APOLUNE_DOCTOR
+	APOLUNE_HOUSE
+	
+	TRUNK_2
+	TOWER_OF_TRUNK
+	
+	FOREPAW
+	FOREPAW_BUTCHER
+	FOREPAW_VENDOR
+	FOREPAW_CHURCH
+	FOREPAW_DOCTOR
+	FOREPAW_HOUSE
+	FOREPAW_LOCKSMITH
+	
+	TRUNK_3
+	TOWER_OF_FORTRESS
+	TOWER_OF_FORTRESS_CHURCH
+	TOWER_OF_FIRST_SPRING
+	
+	MIST_1
+	MIST_1_TOWER_OF_RED_POTION
+	
+	MASCON
+	MASCON_BAR
+	MASCON_BUTCHER
+	MASCON_VENDOR
+	MASCON_LOCKSMITH
+	MASCON_HOUSE
+	MASCON_DOCTOR
+	
+	MIST_2
+	MIST_2_VENDOR
+	MIST_2_HOUSE
+	MIST_2_BAR
+	MIST_2_CHURCH
+	MIST_2_DOCTOR
+	TOWER_OF_SUFFER
+	
+	VICTIM
+	VICTIM_CHURCH
+	VICTIM_DOCTOR
+	VICTIM_HOUSE
+	VICTIM_BUTCHER
+	VICTIM_LOCKSMITH
+	VICTIM_VENDOR
+	VICTIM_BAR
+	
+	MIST_3
+	MIST_3_TOWER_OF_RED_POTION
+	MIST_3_FIRE_MAGE
+	MIST_3_HOUSE
+	TOWER_OF_MIST
+	
+	BRANCH_1
+	BRANCH_1B
+	
+	CONFLATE
+	CONFLATE_HOUSE
+	CONFLATE_BUTCHER
+	CONFLATE_CHURCH
+	CONFLATE_DOCTOR
+	CONFLATE_VENDOR
+	CONFLATE_BAR
+	
+	BRANCH_2
+	BRANCH_3
+	
+	DAYBREAK
+	DAYBREAK_LOCKSMITH
+	DAYBREAK_VENDOR
+	DAYBREAK_BUTCHER
+	DAYBREAK_BAR
+	DAYBREAK_CHURCH
+	DAYBREAK_HOUSE
+	
+	BRANCH_4
+	
+	DWARF
+	DWARF_BUTCHER
+	DWARF_LOCKSMITH
+	DWARF_VENDOR
+	DWARF_HOUSE
+	DWARF_BAR
+	DWARF_REMOTE_HOUSE
+	
+	CASTLE_OF_FRATERNAL
+	CASTLE_OF_FRATERNAL_CHURCH
+	CASTLE_OF_FRATERNAL_VENDOR
+	CASTLE_OF_FRATERNAL_THRONE_ROOM
+	
+	DARTMOOR
+	DARTMOOR_CHURCH
+	DARTMOOR_BAR
+	DARTMOOR_BUTCHER
+	DARTMOOR_DOCTOR
+	DARTMOOR_LOCKSMITH
+	DARTMOOR_VENDOR
+	
+	ZENIS
+
+	NUM_ZONE_IDS
+.endenum ; ZONE_ID
+
+; Special zones that receive IDs ??-MAX_ZONES. This mechanism is a workaround to places in the game that hardcode music tracks. Because these hardcoded values occur in the code, they are not easy to replace by an editor. Creating zones for them allows them to be assigned via ZoneTrackMap.
+.enum SPECIAL_ZONE_ID
+	; Plays when the last boss is defeated before transitioning to the ending. This is done because the last boss room in ZoneTrackMap must have the same music track as the last area or the music transition will be awdward.
+	LAST_BOSS_ROOM
+	ENDING_THRONE_ROOM ; The ending conversation with the king
+	
+	NUM_SPECIAL_ZONE_IDS
+.endenum ; SPECIAL_ZONE_ID
+
+.endif ; .ifndef CONSTANTS_INC

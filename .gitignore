@@ -1,0 +1,12 @@
+/build
+/release
+/tracks
+.vs
+__pycache__
+*.bps
+*.dbg
+*.ips
+*.mlb
+*.nes
+*.xdelta
+*.zip
