@@ -1,25 +1,5 @@
 .macpack common
 
-; Theory of Operation
-; - Convert mapper to MMC3
-;	- Support 8 KB code banks
-;	- Use scanline IRQ for status bar to recover up to 5k cycls/frame
-; - Music system integration
-; 	- Leave *fa function the same
-; 	- Add IsPlayingFt variable
-; 	- UpdateNativeMusic must not update music when IsPlayingFt is set, UpdateFtMusic when clear
-; 	- Let UpdateNativeMusic handle *fa == 0
-; 	- bhop channels are muted according to 123[x]
-; - Native music
-; 	- Store pointers to track headers in the track address table and make UpdateNativeMusic read from TrackAddrToPlay to allow more than $10 native tracks
-; 	- Possible to pause native music while FT music plays and restore ?
-; 	- Support multiple banks ?
-; - FT Music
-;	- Support 1 saved track
-
-;.feature c_comments
-;.feature org_per_seg
-
 .include "build.inc"
 .include "nes.inc"
 .include "mmc3.inc"
